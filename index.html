@@ -1,83 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>game bhau</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f9f9f9;
-    }
-    .container {
-      text-align: center;
-      background: #fff;
-      padding: 20px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-    }
-    button {
-      background: #0078D7;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 20px;
-    }
-    button:hover {
-      background: #005bb5;
-    }
-    .instructions {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f1f1f1;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      text-align: left;
-    }
-    ul {
-      padding-left: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Browser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+
+        .browser {
+            width: 90%;
+            margin: 20px auto;
+            border: 5px solid #333;
+            border-radius: 10px;
+            background-color: #f7f7f7;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .browser-header {
+            display: flex;
+            align-items: center;
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .browser-header .dots {
+            display: flex;
+            gap: 5px;
+            margin-right: auto;
+        }
+
+        .browser-header .dots span {
+            width: 15px;
+            height: 15px;
+            background-color: red;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .browser-header .dots span:nth-child(2) {
+            background-color: yellow;
+        }
+
+        .browser-header .dots span:nth-child(3) {
+            background-color: green;
+        }
+
+        .browser-header .dots span:hover {
+            transform: scale(1.2);
+        }
+
+        .browser-header h1 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .browser-content {
+            padding: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            font-size: 16px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #555;
+        }
+
+        .result {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>game bhau</h1>
-    <p>Click the button and play game</p>
-    <button onclick="generatePopups()">Open game page</button>
-
-    <div class="instructions">
-  
-      
+    <div class="browser">
+        <div class="browser-header">
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <h1>Funny Browser</h1>
+        </div>
+        <div class="browser-content">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Type something funny...">
+                <button onclick="searchFunny()">Search</button>
+            </div>
+            <div class="result" id="result">Results will appear here...</div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    function generatePopups() {
-      const popupCount = 1000; // Number of popups
-      for (let i = 0; i < popupCount; i++) {
-        const popup = window.open(
-          "",
-          `popup${i}`,
-          `width=300,height=200,left=${i * 50},top=${i * 50}`
-        );
-        if (popup) {
-          popup.document.write(`<h1>game ${i + 1}</h1><p>game is not open allow enable  ${i + 1}.</p>`);
-        } else {
-          alert("games are not open! Please enable popups for this site and try again.");
-          break;
+    <script>
+        const funnyResponses = [
+            "404: Humor not found! Try again?",
+            "Why did the search cross the road? To find a better punchline!",
+            "Did you mean to type that? Even the internet is confused!",
+            "Congratulations! You broke the internet. Just kidding!",
+            "Your search query just earned 10 giggles!",
+            "Error: Too much silliness detected!",
+            "Fun fact: Searching for nothing is harder than you think!"
+        ];
+
+        function searchFunny() {
+            const input = document.getElementById('searchInput').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            if (!input) {
+                resultDiv.textContent = "Please type something! The browser's waiting...";
+            } else {
+                const randomIndex = Math.floor(Math.random() * funnyResponses.length);
+                resultDiv.textContent = funnyResponses[randomIndex];
+            }
         }
-      }
-    }
-  </script>
+    </script>
 </body>
 </html>
